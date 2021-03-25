@@ -14,6 +14,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+##################### START ADMIN ROUTES #################
+
+
+Route::group(['namespace' => 'dashboard' , 'middleware' => 'auth:admin' , 'prefix' => 'admin'] , function(){
+
+    Route::get('test',function(){
+        return 'welcome in admin login';
+    });
+
+});
+
+Route::group(['namespace' => 'dashboard' , 'prefix' => 'admin'] , function(){
+
+    Route::get('login',function(){
+        return 'Plase Relogon';
+    })->name('admin.login');
+
+});
+
+
+
+##################### END ADMIN ROUTES ###################
 
 
 
