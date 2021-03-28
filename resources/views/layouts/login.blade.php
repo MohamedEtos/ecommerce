@@ -35,7 +35,7 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/style-rtl.css')}}">
     <!-- END Custom CSS-->
-    @notify_css
+    {{-- @notify_css --}}
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">s
     <style>
         body {
@@ -51,7 +51,7 @@
         <div class="content-header row">
         </div>
         <div class="content-body">
-            @yield('content')
+            @yield('login')
         </div>
     </div>
 </div>
@@ -75,7 +75,5 @@
 <script>
 
 </script>
-@notify_js
-@notify_render
 </body>
 </html>

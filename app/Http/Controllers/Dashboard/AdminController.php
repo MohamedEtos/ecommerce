@@ -2,84 +2,44 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\adminLoginRequest;
 use App\Models\admin;
 use Illuminate\Http\Request;
 
+
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+######## GET VIEW LOGIN ##########
+    public function adminlogin(){
+        return view('Dashboard.login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+####### Save Admin in database is Visit link AddAdmin #######
+public function save(){
+    $admin = new admin();
+    $admin -> name ="Mohamed Mahrous";
+    $admin -> email ="root@root.com";
+    $admin -> password = bcrypt("root");
+    $admin -> save();
+    return redirect()->route('admin.login');
+}
+
+
+######## START POST LOGIN  ##############
+
+public function postlogin(adminLoginRequest $request){
+
+    $remember_me = $request->has('remember_me') ? true : false;
+    ######## SECCESS TO LOGIN #########
+    if (auth()->guard('admin')->attempt(['email' => $request->input("email"), 'password' => $request->input("password")], $remember_me)) {
+        return redirect() -> route('admin.dashboard');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   ######### FAILD TO LOGIN ###########
+    return redirect()->back()->with(['error' => 'اسم المستخدم او كلمه المرور خطأ']);
+}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(admin $admin)
-    {
-        //
-    }
+######## END POST LOGIN  ################
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(admin $admin)
-    {
-        //
-    }
 }

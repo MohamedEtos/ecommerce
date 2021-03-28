@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{{-- <html class="loading" lang="en" data-textdirection="{{ app() -> getLocale() === 'ar' ? 'rtl' : 'ltr'}}"> --}}
+<html class="loading" lang="en" data-textdirection="{{ app() -> getLocale() === 'ar' ? 'rtl' : 'ltr'}}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,7 +71,7 @@
 @include('dashboard.includes.sidebare')
 
   <!-- end sidebar -->
- @yield('content')
+ @yield('index')
 
 <!-- begin footer html -->
 @include('dashboard.includes.footer')

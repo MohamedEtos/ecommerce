@@ -14,28 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-##################### START ADMIN ROUTES #################
+#####################  ADMIN ROUTES #################
 
+####### Start Auth Routes ########
+Route::group(['namespace' => 'dashboard' ,'middleware' => 'auth:admin', 'prefix' => 'admin'] , function(){
 
-Route::group(['namespace' => 'dashboard' , 'middleware' => 'auth:admin' , 'prefix' => 'admin'] , function(){
-
-    Route::get('test',function(){
-        return 'welcome in admin login';
-    });
-
-});
-
-Route::group(['namespace' => 'dashboard' , 'prefix' => 'admin'] , function(){
-
-    Route::get('login',function(){
-        return 'Plase Relogon';
-    })->name('admin.login');
+    ###### Go To Dashboard ####### 🡫
+    Route::get('/','DashboardController@dashborad')->name('admin.dashboard');
 
 });
+####### End Auth Routes ########
 
 
 
-##################### END ADMIN ROUTES ###################
+####### Start Global Routes ########
+Route::group(['namespace' => 'dashboard','middleware' => 'guest:admin' , 'prefix' => 'admin'] , function(){
+    ######## view Login #######
+    Route::get('login','AdminController@adminlogin')->name('admin.login');
+
+    ######## POST DATA FROM LOGIN PAGE TO CONTROLLER#####
+    Route::post('postloginform','AdminController@postlogin')->name('post_form_login');
+
+    ####### ADD ROOT ADMIN IN DATABASE IF VISIT THIS ROUTE ######
+    Route::get('addadmin','AdminController@save');
+});
+
 
 
 
